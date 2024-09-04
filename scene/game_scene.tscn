@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl7rbhxrqviv4"]
+
+[ext_resource type="PackedScene" uid="uid://by4heqm1es1ey" path="res://scene/card.tscn" id="1_p36j5"]
+[ext_resource type="Script" path="res://scene/game_scene.gd" id="1_qjd2r"]
+
+[node name="gameScene" type="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(450, 400)
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -190.0
+offset_right = 460.0
+offset_bottom = 210.0
+grow_vertical = 2
+script = ExtResource("1_qjd2r")
+
+[node name="CardGrid" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(450, 400)
+layout_mode = 1
+offset_right = 450.0
+offset_bottom = 400.0
+columns = 4
+
+[node name="Card" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card2" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card3" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card4" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card5" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card6" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card7" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card8" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card9" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card10" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card11" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2
+
+[node name="Card12" parent="CardGrid" instance=ExtResource("1_p36j5")]
+layout_mode = 2

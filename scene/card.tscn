@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://by4heqm1es1ey"]
+
+[ext_resource type="Script" path="res://scene/card.gd" id="1_5nw7s"]
+[ext_resource type="Texture2D" uid="uid://bkol5yyn5y846" path="res://assets/cards/back_0.png" id="1_fw7kk"]
+
+[node name="Card" type="Control"]
+custom_minimum_size = Vector2(100, 125)
+layout_direction = 2
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5nw7s")
+metadata/_edit_horizontal_guides_ = [125.0]
+metadata/_edit_vertical_guides_ = [100.0]
+
+[node name="CardTexture" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 125.0
+texture_normal = ExtResource("1_fw7kk")
+stretch_mode = 0
+
+[connection signal="pressed" from="CardTexture" to="." method="_on_card_texture_pressed"]
