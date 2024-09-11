@@ -13,11 +13,15 @@ var card_textures = [
 	preload("res://assets/cards/Spades_card_11.png")
 ]
 
+# Variables
+var score = 0  # Variable to hold the player's score
+var flipped_cards = []  # Array to hold currently flipped cards for pair checking
 
 func _ready():
 	shuffle_deck()
 	deal_cards()
-	
+	update_score_label()  # Initialize score label
+
 func shuffle_deck():
 	card_values.shuffle()  # Randomizes the order of card values
 
@@ -35,5 +39,35 @@ func deal_cards():
 
 # Callback to handle the card flipping event
 func _on_card_flipped(flipped_card):
-	# Handle the game logic here (e.g., check for pairs, etc.)
-	pass
+	# Add the flipped card to the list of flipped cards
+	flipped_cards.append(flipped_card)
+	
+	# If two cards are flipped, check if they match
+	if flipped_cards.size() == 2:
+		check_for_pair()
+
+# Function to check if two flipped cards are a pair
+func check_for_pair() -> void:
+	if flipped_cards[0].value == flipped_cards[1].value:
+		# If they match, keep them revealed and disable further interaction
+		print("Match found!")
+		flipped_cards[0].disable_card()
+		flipped_cards[1].disable_card()
+		
+		# Increment the score when a match is found
+		score += 1
+		update_score_label()
+	else:
+		# If they don't match, flip them back after a short delay
+		print("No match.")
+		await get_tree().create_timer(1.0).timeout  # Use await instead of yield
+		flipped_cards[0].flip_back()
+		flipped_cards[1].flip_back()
+
+	# Clear the flipped cards array for the next attempt
+	flipped_cards.clear()
+
+# Function to update the score label
+func update_score_label():
+	var score_label = $ScoreLabel  # Reference the ScoreLabel node
+	score_label.text = "Score: " + str(score)  # Set the text of the label

@@ -6,18 +6,22 @@ signal flipped(card)
 # Variables
 var value = 0  # The value associated with the card, e.g., 1, 2, 3, etc.
 var is_flipped = false
+var is_matched = false  # To track if the card has been matched and should remain flipped
 var front_texture = null  # The front texture (depends on the card's value)
 var back_texture = preload("res://assets/cards/back_0.png")  # Shared back texture for all cards
+var texture_button = null  # To store the TextureButton reference
 
 # Function to handle the click (triggered by the TextureButton)
 func _ready():
-	var texture_button = $CardTexture  # Reference the TextureButton node
+	# Reference the TextureButton node only once to avoid multiple lookups
+	texture_button = $CardTexture  
 	texture_button.texture_normal = back_texture  # Set the back texture initially
 	texture_button.connect("pressed", _on_TextureButton_pressed)  # Connect pressed signal
 
 # Function called when the TextureButton is pressed
 func _on_TextureButton_pressed():
-	flip_card()
+	if not is_flipped and not is_matched:  # Prevent flipping if already flipped or matched
+		flip_card()
 
 # Function to flip the card
 func flip_card():
@@ -34,9 +38,7 @@ func flip_card():
 
 # Function to update the card's texture based on its flipped state
 func update_card_appearance():
-	var texture_button = $CardTexture  # Reference the TextureButton node again
-
-	if is_flipped:
+	if is_flipped or is_matched:
 		texture_button.texture_normal = front_texture  # Show the front of the card
 	else:
 		texture_button.texture_normal = back_texture  # Show the back of the card
@@ -46,3 +48,15 @@ func set_card_value(new_value, texture):
 	value = new_value
 	front_texture = texture  # Bind the texture to the value
 	update_card_appearance()  # Ensure the correct texture is shown if the card was flipped
+
+# Optional function to manually flip back the card (useful for mismatched pairs)
+func flip_back():
+	if is_flipped and not is_matched:  # Only flip if the card is already flipped and not matched
+		is_flipped = false
+		update_card_appearance()
+
+# Function to disable the card when a match is found
+func disable_card():
+	is_matched = true  # Mark the card as matched so it stays revealed and unclickable
+	update_card_appearance()
+	texture_button.disabled = true  # Disable further interaction with the card
