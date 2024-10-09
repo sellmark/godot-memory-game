@@ -60,3 +60,10 @@ func disable_card():
 	is_matched = true  # Mark the card as matched so it stays revealed and unclickable
 	update_card_appearance()
 	texture_button.disabled = true  # Disable further interaction with the card
+
+# Reset the card to enable interaction again (used when resetting the game)
+func reset_card():
+	is_flipped = false
+	is_matched = false  # Reset matched status
+	update_card_appearance()
+	texture_button.disabled = false  # Re-enable interaction
